@@ -1,6 +1,6 @@
 package hh;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TreeNode {
@@ -33,16 +33,19 @@ public class TreeNode {
 		 return head;	 
 	 }
 	
-	public static void CreateBiTree(TreeNode T){
-		Scanner in=new Scanner(System.in);
-		int x=in.nextInt();
-		if(x==-1)
+	public static ArrayList<Integer> data = new ArrayList<>();
+	public static int cnt;
+	
+	public static TreeNode CreateBiTree(){
+		TreeNode T = null;
+		if(cnt >= data.size() || data.get(cnt++) == -1)
 			T=null;
 		else{
-			T = new TreeNode(x);
-			CreateBiTree(T.left);
-			CreateBiTree(T.right);
+			T = new TreeNode(data.get(cnt-1));
+			T.left = CreateBiTree();
+			T.right = CreateBiTree();
 		}
+		return T;
 	}
 	
 	public static void PreOrder(TreeNode T){
@@ -72,20 +75,26 @@ public class TreeNode {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("tree");
-//		TreeNode T=new TreeNode(0);
-//		CreateBiTree(T); Wrong!!!
+		Scanner in = new Scanner(System.in);
+		String str = in.nextLine();
+		String[] s = str.split(" ");
+		
+		for(int i=0;i<s.length;i++)
+			data.add(Integer.valueOf(s[i]).intValue());		
+		cnt = 0;
+		TreeNode T= CreateBiTree();
 		
 		int pre[] = {1,2,4,7,3,5,6,8};
 		int in[] = {4,7,2,1,5,3,8,6};
 		TreeNode T = reConstructBinaryTree(pre, in);
 		
-		System.out.println("前序遍历：");
+		System.out.println("前序遍历�?);
 		PreOrder(T);
 		System.out.println();
-		System.out.println("中序遍历：");
+		System.out.println("中序遍历�?);
 		InOrder(T);
 		System.out.println();
-		System.out.println("后序遍历：");
+		System.out.println("后序遍历�?);
 		PostOrder(T);
 	}
 
